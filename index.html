@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/style.css" />
+		<link rel="stylesheet" href="./styles/media-queries.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="shortcut icon" href="./fav-icon.png" type="image/x-icon" />
+		<title>TDM</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<div class="header__title">
+					<p>your tasks</p>
+					<div class="theme">
+						<div class="theme__btn theme-dark"></div>
+						<div class="theme__btn theme-light"></div>
+					</div>
+				</div>
+					
+				<div class="header__date">
+					<p></p>
+				</div>
+			</div>
+
+			<div class="formSection">
+				<form class="form" action="#">
+					<div class="form__input">
+						<input
+							id="task-name"
+							type="text"
+							placeholder="Type task here"
+							autocomplete="off"
+							class="input"
+						/>
+					</div>
+					<div class="form__button">
+						<button class="button" type="submit">Add Task</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="tasks section">
+				<ul class="tasks__list"></ul>
+			</div>
+			<div class="delComplBtn section">
+				<button class="delComplBtn__button button">Delete completed</button>
+			</div>
+		</div>
+
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
+		<script src="./scripts/main.js"></script>
+	</body>
+</html>
