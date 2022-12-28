@@ -10,6 +10,7 @@ const themeStyle = document.querySelector('link');
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let draggableNode = null;
 
+// saveToLocalStorege();
 render();
 
 // DATE
@@ -105,15 +106,16 @@ function saveToLocalStorege() {
 }
 
 function render() {
-	themeStyle.href = JSON.parse(localStorage.getItem('themeStyle'));
 	while (taskList.firstChild) {
-		taskList.removeChild(taskList.firstChild); //???
+		taskList.removeChild(taskList.firstChild);
 	}
 	tasks.forEach((task) => renderTask(task));
 	makeDraggable();
 }
 
 function renderTask(task) {
+	themeStyle.href = JSON.parse(localStorage.getItem('themeStyle'));
+
 	const cssClass = task.done ? 'tasks__item tasks__done' : 'tasks__item';
 	const newTask = `
 									<li id="${task.id}" class="${cssClass}" draggable="true">
