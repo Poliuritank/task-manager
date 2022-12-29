@@ -5,14 +5,14 @@ const delComplBtn = document.querySelector('.delComplBtn');
 
 const darkTheme = document.querySelector('.theme-dark');
 const lightTheme = document.querySelector('.theme-light');
-const themeStyle = document.querySelector('link');
+const themeStyleNode = document.getElementById('main-style');
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let draggableNode = null;
 
+setUserPrefferedStyle();
 
 // DATE
-
 const curDate = new Date();
 const dateContainer = document.querySelector('.header__date');
 
@@ -36,7 +36,38 @@ delComplBtn.addEventListener('click', delComplTasks);
 darkTheme.addEventListener('click', drowDark);
 lightTheme.addEventListener('click', drowLight);
 
-// FUNCTIONS
+// Theme
+function setUserPrefferedStyle(){
+	const path = localStorage.getItem('themeStyle');
+	if(!path){
+		return;
+	}
+
+	themeStyleNode.href = path;
+}
+
+function saveUserPrefferedStyle(path){
+	localStorage.setItem('themeStyle', path);
+}
+
+function drowDark(event) {
+	event.preventDefault();
+	const path = './styles/themes/style-dark.css'
+	themeStyleNode.href = path;
+	saveUserPrefferedStyle(path)
+}
+
+function drowLight(event) {
+	event.preventDefault();
+	const path = './styles/style.css'
+	themeStyleNode.href = path;
+	saveUserPrefferedStyle(path)
+}
+
+// Tasks
+function saveTasks(){
+	localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
 function addTask(event) {
 	event.preventDefault();
@@ -49,12 +80,12 @@ function addTask(event) {
 		done: false,
 	};
 	tasks.push(storageTask);
-	saveToLocalStorege();
+	saveTasks();
 
 	formInput.value = '';
 	formInput.focus();
 
-	render();
+	renderTasks();
 }
 
 function delTask(event) {
@@ -65,7 +96,7 @@ function delTask(event) {
 		const id = Number(parent.id);
 		const index = tasks.findIndex((task) => task.id == id);
 		tasks.splice(index, 1);
-		saveToLocalStorege();
+		saveTasks();
 
 		parent.remove();
 	}
@@ -79,7 +110,7 @@ function doneTask(event) {
 		const id = Number(parent.id);
 		const task = tasks.find((task) => task.id === id);
 		task.done = !task.done;
-		saveToLocalStorege();
+		saveTasks();
 	}
 }
 
@@ -92,19 +123,13 @@ function delComplTasks(event) {
 			const id = Number(parent.id);
 			const index = tasks.findIndex((task) => task.id === id);
 			tasks.splice(index, 1);
-			saveToLocalStorege();
+			saveTasks();
 			parent.remove();
 		});
 	}
 }
 
-function saveToLocalStorege() {
-	localStorage.setItem('tasks', JSON.stringify(tasks));
-	localStorage.setItem('themeStyle', JSON.stringify(themeStyle.href));
-}
-
-function render() {
-	themeStyle.href = JSON.parse(localStorage.getItem('themeStyle'));
+function renderTasks() {
 	while (taskList.firstChild) {
 		taskList.removeChild(taskList.firstChild);
 	}
@@ -134,18 +159,8 @@ function renderTask(task) {
 	taskList.insertAdjacentHTML('beforeend', newTask);
 }
 
-function drowDark(event) {
-	event.preventDefault();
-	themeStyle.href = './styles/themes/style-dark.css';
-	saveToLocalStorege();
-}
-function drowLight(event) {
-	event.preventDefault();
-	themeStyle.href = './styles/style.css';
-	saveToLocalStorege();
-}
 
-// DRAG&DROP
+// Drag & drop
 
 function dragStart(e) {
 	this.classList.add('selected');
@@ -168,8 +183,8 @@ function dragDrop(e) {
 	let target = tasks.splice(targetTaskIndex, 1, tasks[draggableTaskIndex])[0];
 	tasks.splice(draggableTaskIndex, 1, target);
 	draggableNode = null;
-	saveToLocalStorege();
-	render();
+	saveTasks();
+	renderTasks();
 }
 
 function makeDraggable() {
@@ -180,4 +195,4 @@ function makeDraggable() {
 		taskelement.addEventListener('drop', dragDrop);
 	});
 }
-render();
+renderTasks();
