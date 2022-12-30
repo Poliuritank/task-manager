@@ -12,7 +12,8 @@ let draggableNode = null;
 
 setUserPrefferedStyle();
 
-// DATE
+// Date
+
 const curDate = new Date();
 const dateContainer = document.querySelector('.header__date');
 
@@ -27,7 +28,8 @@ let now = curDate.toLocaleString('en', options);
 const datePar = dateContainer.querySelector('p');
 datePar.append(now);
 
-// LISTNERS
+// Listners
+
 btnAdd.addEventListener('click', addTask);
 taskList.addEventListener('click', delTask);
 taskList.addEventListener('click', doneTask);
@@ -37,6 +39,7 @@ darkTheme.addEventListener('click', drowDark);
 lightTheme.addEventListener('click', drowLight);
 
 // Theme
+
 function setUserPrefferedStyle(){
 	const path = localStorage.getItem('themeStyle');
 	if(!path){
@@ -65,6 +68,7 @@ function drowLight(event) {
 }
 
 // Tasks
+
 function saveTasks(){
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 }
