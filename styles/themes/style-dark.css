@@ -220,7 +220,6 @@ ion-icon {
 .tasks__list {
 	display: flex;
 	flex-direction: column;
-	width: 102%;
 	list-style: none;
 	margin-left: -5px;
 	margin-right: -5px;
@@ -229,7 +228,6 @@ ion-icon {
 .tasks__item {
 	width: 100%;
 	display: flex;
-	margin: 0 0 0 2px;
 	padding: 5px;
 	border-radius: 4px;
 	cursor: move;
